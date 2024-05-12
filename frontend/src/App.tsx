@@ -8,6 +8,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout><p>Home page</p></Layout>}/>
         <Route path="/search" element={<Layout><p>Search page</p></Layout>}/>
+        <Route path="/sign-in" element={<Layout><p>Sign-in page</p></Layout>}/>
         <Route path="*" element={<Navigate to="/"/>}/>
       </Routes>
     </>
