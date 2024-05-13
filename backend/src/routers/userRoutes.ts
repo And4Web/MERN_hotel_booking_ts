@@ -1,7 +1,9 @@
-import {Router} from 'express';
+import { Router} from 'express';
 import {createNewUser, getAllUsers} from '../controllers/userController';
 import User from '../models/user';
 import tryCatch from '../utils/tryCatch';
+import expressValidator from '../../middleware/validator';
+
 
 const router = Router();
 
@@ -13,6 +15,6 @@ router.get('/all', getAllUsers)
 // @function - create new User
 // @route - /api/v1/users/register
 // @access - public 
-router.post("/register", createNewUser)
+router.post("/register", expressValidator, createNewUser)
 
 export default router;
