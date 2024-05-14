@@ -3,8 +3,10 @@ import { RegisterFormDataType } from "../types";
 import { useMutation } from "react-query";
 import * as apiClient from '../api-client';
 import { useAppContext } from "../contexts/AppContext";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const {showToast} = useAppContext();
 
   const { register, watch, handleSubmit, formState: {errors} } = useForm<RegisterFormDataType>();
@@ -12,6 +14,7 @@ function Register() {
   const mutation = useMutation(apiClient.register, {
     onSuccess: ()=>{
       showToast({message:"Registration successfull.", type: "SUCCESS"})
+      navigate("/");
     },
     onError: (error: Error)=>{
       showToast({message: error.message, type: "ERROR"})

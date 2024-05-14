@@ -1,10 +1,11 @@
-import { RegisterFormData } from "./types";
+import { RegisterFormDataType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const register = async(formData: RegisterFormData)=>{
+export const register = async(formData: RegisterFormDataType)=>{
   const response = await fetch(`${API_BASE_URL}/v1/users/register`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json"
     },

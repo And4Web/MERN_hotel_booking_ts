@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { userLogin } from "../controllers/authController";
+import { userLogin, validateToken } from "../controllers/authController";
 import { loginValidator } from "../../middleware/validator";
+import verifyToken from "../../middleware/auth";
 
 const router = Router();
 
@@ -9,6 +10,9 @@ const router = Router();
 // @access - public
 router.post('/login', loginValidator, userLogin)
 
-
+// @function - validate token after registration
+// @route - /api/v1/auth/validate-token
+// @access - public
+router.get('/validate-token', verifyToken, validateToken)
 
 export default router;

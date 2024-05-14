@@ -46,3 +46,11 @@ export const userLogin = async (req: Request, res: Response) => {
     return res.status(500).json({success: false, message: "Something went wrong", error})
   }
 }
+
+
+// @function - validate token after registration
+// @route - /api/v1/auth/validate-token
+// @access - public
+export const validateToken = async(req:Request, res:Response) => {
+  return res.status(200).json({success: true, userId: req.userId})
+}
