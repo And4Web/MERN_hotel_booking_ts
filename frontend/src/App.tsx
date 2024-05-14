@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate} from 'react-router-dom';
 
 import Layout from "./layouts/Layout"
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <Route path="/" element={<Layout><p>Home page</p></Layout>}/>
         <Route path="/search" element={<Layout><p>Search page</p></Layout>}/>
         <Route path="/sign-in" element={<Layout><p>Sign-in page</p></Layout>}/>
+        <Route path="/register" element={<Layout><Register/></Layout>}/>
         <Route path="*" element={<Navigate to="/"/>}/>
       </Routes>
     </>
