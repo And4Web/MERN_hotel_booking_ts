@@ -1,7 +1,17 @@
-export type RegisterFormData = {
+export type RegisterFormDataType = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
 };
+
+export type ToastMessageType = {
+  message: string;
+  type: 'SUCCESS' | 'ERROR';
+  onClose?: () => void;
+}
+
+export type AppContextType = {
+  showToast: (toastMessage: ToastMessageType) => void;
+}
