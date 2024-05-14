@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import errorMiddleware from '../middleware/error';
 
 // import all routers
+import authRoutes from './routers/authRoutes';
 import userRoutes from './routers/userRoutes';
 
 mongoose.connect(process.env.MONGODB_LOCAL_URI as string).then(()=>{console.log('mongodb database connected successfully.')}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
@@ -21,6 +22,7 @@ app.get("/api/v1/test", async(req: Request, res: Response)=>{
 
 // routes
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 // custom error handling middleware
 app.use(errorMiddleware)

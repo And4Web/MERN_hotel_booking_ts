@@ -23,9 +23,9 @@ export const getAllUsers = async (req: Request, res: Response)=>{
 // @access - public
 export const createNewUser = async(req: Request, res: Response)=>{
   const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    
+  if(!errors.isEmpty()){    
     const errorsList = errors.array().map(e=>e.msg);
+    
     return res.status(400).json({success: false, message: errorsList});
   }
 
