@@ -50,7 +50,21 @@ export const userLogin = async (req: Request, res: Response) => {
 
 // @function - validate token after registration
 // @route - /api/v1/auth/validate-token
-// @access - public
+// @access - restricted
 export const validateToken = async(req:Request, res:Response) => {
   return res.status(200).json({success: true, userId: req.userId})
+}
+
+// @function - invalidate token and sign out
+// @route - /api/v1/auth/sign-out
+// @access - restricted
+export const userLogout = async (req: Request, res: Response) => {
+  // return an invalid token to the client which expires at the time of creation:
+
+  res.cookie("auth_token", "", {
+    expires: new Date(0),
+  })
+
+  return res.status(200).json({success: true, message: "signed out."})
+
 }

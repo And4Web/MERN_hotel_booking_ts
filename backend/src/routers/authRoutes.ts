@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { userLogin, validateToken } from "../controllers/authController";
+import { userLogin, userLogout, validateToken } from "../controllers/authController";
 import { loginValidator } from "../../middleware/validator";
 import verifyToken from "../../middleware/auth";
 
@@ -12,7 +12,12 @@ router.post('/sign-in', loginValidator, userLogin)
 
 // @function - validate token after registration
 // @route - /api/v1/auth/validate-token
-// @access - public
+// @access - restricted
 router.get('/validate-token', verifyToken, validateToken)
+
+// @function - invalidate token and sign out
+// @route - /api/v1/auth/sign-out
+// @access - restricted
+router.post('/sign-out', userLogout)
 
 export default router;
