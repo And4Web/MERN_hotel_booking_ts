@@ -3,6 +3,8 @@ import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import morgan from "morgan";
+
 import errorMiddleware from '../middleware/error';
 
 // import all routers
@@ -15,6 +17,8 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+app.use(morgan('dev'))
 
 app.use(cors({
   origin: process.env.FRONTEND_URL,
