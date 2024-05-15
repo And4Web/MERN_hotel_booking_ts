@@ -14,4 +14,5 @@ export type ToastMessageType = {
 
 export type AppContextType = {
   showToast: (toastMessage: ToastMessageType) => void;
+  isLoggedin: boolean;
 }
