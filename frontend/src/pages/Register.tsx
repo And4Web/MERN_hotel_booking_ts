@@ -102,7 +102,7 @@ function Register() {
         )}
       </label>
       <span>
-        <button type="submit" className="bg-blue-600 text-white font-bold p-2 hover:bg-blue-500 text-xl ">Create Account</button>
+        <button type="submit" className="bg-blue-600 text-white font-bold p-2 hover:bg-blue-500 text-xl rouded">Create Account</button>
       </span>
     </form>
   );

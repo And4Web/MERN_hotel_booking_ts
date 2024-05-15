@@ -8,7 +8,7 @@ const router = Router();
 // @function - existing user log in
 // @route - /api/v1/auth/sign-in
 // @access - public
-router.post('/login', loginValidator, userLogin)
+router.post('/sign-in', loginValidator, userLogin)
 
 // @function - validate token after registration
 // @route - /api/v1/auth/validate-token

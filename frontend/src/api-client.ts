@@ -1,4 +1,4 @@
-import { RegisterFormDataType } from "./types";
+import { LoginFormDataType, RegisterFormDataType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -18,6 +18,24 @@ export const register = async(formData: RegisterFormDataType)=>{
     throw new Error(responseBody.message)
   }
 };
+
+
+export const login = async (formData: LoginFormDataType) => {
+  const response = await fetch(`${API_BASE_URL}/v1/auth/sign-in`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      'Content-Type': "application/json"
+    },
+    body: JSON.stringify(formData)
+  })
+
+  const body = await response.json();
+
+  if(!response.ok) throw new Error(body.message);
+
+  return body;
+}
 
 
 export const validateToken = async () => {

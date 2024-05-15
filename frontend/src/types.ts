@@ -6,6 +6,11 @@ export type RegisterFormDataType = {
   confirmPassword: string;
 };
 
+export type LoginFormDataType = {
+  email: string;
+  password: string;
+}
+
 export type ToastMessageType = {
   message: string;
   type: 'SUCCESS' | 'ERROR';

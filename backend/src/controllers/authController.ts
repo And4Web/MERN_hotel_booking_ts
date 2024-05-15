@@ -34,7 +34,7 @@ export const userLogin = async (req: Request, res: Response) => {
       userEmail: user.email
     }, process.env.JWT_SECRET_KEY as string, {expiresIn: "1h"});
 
-    res.cookie("auth-token", token, {
+    res.cookie("auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 3600000
