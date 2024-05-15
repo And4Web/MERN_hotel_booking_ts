@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { LoginFormDataType } from "../types";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import * as apiClient from '../api-client';
 import { useAppContext } from "../contexts/AppContext";
 
 export default function Login() {
+  const queryClient = useQueryClient();
 
   const {showToast} = useAppContext();
 
@@ -16,6 +17,8 @@ export default function Login() {
 
   const mutation = useMutation(apiClient.login, {
     onSuccess: async () => {
+      // invalidate validateToken query
+      await queryClient.invalidateQueries('validateToken');
       // 1. show the toast
       showToast({message: "Sign in successfull", type: "SUCCESS"});
       // 2. navigate to home page
