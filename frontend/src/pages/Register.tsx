@@ -3,7 +3,7 @@ import { RegisterFormDataType } from "../types";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from '../api-client';
 import { useAppContext } from "../contexts/AppContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
   const queryClient = useQueryClient();
@@ -103,8 +103,9 @@ function Register() {
           <span className="text-red-500">{errors.confirmPassword.message}</span>
         )}
       </label>
-      <span>
-        <button type="submit" className="bg-blue-600 text-white font-bold p-2 hover:bg-blue-500 text-xl rouded">Create Account</button>
+      <span className="flex items-center justify-between">
+        <span className="text-sm">Already have an account? <Link to="/sign-in" className="text-blue-600 underline font-bold">Sign in here</Link></span>
+        <button type="submit" className="bg-blue-600 text-white font-bold p-2 hover:bg-blue-500 text-xl rounded">Create Account</button>
       </span>
     </form>
   );

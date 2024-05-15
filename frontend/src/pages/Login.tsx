@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { LoginFormDataType } from "../types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 
 import * as apiClient from '../api-client';
@@ -63,7 +63,9 @@ export default function Login() {
       {errors.password && (
           <span className="text-red-500">{errors.password.message}</span>
         )}
-      <span>
+      <span className="flex items-center justify-between">
+        <span className="text-sm">Not Registered yet? <Link to="/register" className="text-blue-600 underline font-bold">Register here</Link></span>
+        <span className="text-sm">Forgot password? <Link to="/" className="text-blue-600 underline font-bold">Click here</Link></span>
         <button
           type="submit"
           className="bg-blue-600 text-white font-bold p-2 hover:bg-blue-500 text-xl rounded"
