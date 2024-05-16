@@ -2,7 +2,7 @@ import { Router} from 'express';
 import {createNewUser, getAllUsers} from '../controllers/userController';
 import User from '../models/user';
 import tryCatch from '../utils/tryCatch';
-import { registerValidator } from '../../middleware/validator';
+import { registerValidator } from '../middleware/validator';
 
 
 const router = Router();

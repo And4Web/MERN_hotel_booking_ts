@@ -1,4 +1,4 @@
-const tryCatch = (func) => {
+const tryCatch = (func: ()=>void) => {
   return async () => {
     await func()
   }
