@@ -1,10 +1,15 @@
-import { useForm } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import { HotelFormDataType } from "../../types";
+import DetailsSection from "./DetailsSection";
 
 function ManageHotelForm() {
   const formMethods = useForm<HotelFormDataType>();
   return (
-    <form></form>
+    <FormProvider {...formMethods}>
+      <form>
+        <DetailsSection/>
+      </form>
+    </FormProvider>
   )
 }
 
