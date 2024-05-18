@@ -3,6 +3,7 @@ import { HotelFormDataType } from "../../types";
 import DetailsSection from "./DetailsSection";
 import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
+import GuestsSection from "./GuestsSection";
 
 function ManageHotelForm() {
   const formMethods = useForm<HotelFormDataType>();
@@ -12,6 +13,7 @@ function ManageHotelForm() {
         <DetailsSection/>
         <TypeSection/>
         <FacilitiesSection/>
+        <GuestsSection/>
       </form>
     </FormProvider>
   )
