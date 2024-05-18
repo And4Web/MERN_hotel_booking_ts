@@ -11,8 +11,8 @@ function FacilitiesSection() {
     <div>
       <h2 className="text-2xl font-bold mb-3">Facilities</h2>
       <div className="grid grid-cols-5 gap-3">
-        {hotelFacilities.map((facility) => (
-          <label>
+        {hotelFacilities.map((facility, index) => (
+          <label key={index}>
             <input
               type="checkbox"
               value={facility}

@@ -4,7 +4,7 @@ import { HotelFormDataType } from "../../types";
 
 function DetailsSection() {
   const {register, formState: {errors}} = useFormContext<HotelFormDataType>();
-  console.log(register);
+  // console.log(register);
   return (
     <div className="flex flex-col gap-4 ">
       <h1 className="text-3xl font-bold mb-3">Add Hotel</h1>
@@ -68,8 +68,8 @@ function DetailsSection() {
         <option value="" className="text-sm font-bold">
           Select rating
         </option>
-        {[1, 2, 3, 4, 5].map((num)=>{
-          return <option value={num}>{num}</option>
+        {[1, 2, 3, 4, 5].map((num, index)=>{
+          return <option value={num} key={index}>{num}</option>
         })}
       </select>
       {errors.starRating && (
