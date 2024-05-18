@@ -64,7 +64,7 @@ function DetailsSection() {
         )}
       </label>
       <label className="text-gray-700 text-sm font-bold max-w-[50%]">Star Rating
-      <select {...register("starRating", {required: "This field is Required."})} className="border rounded w-full p-1 text-gray-700 font-normal">
+      <select {...register("starRating", {required: "Star rating is Required."})} className="border rounded w-full p-1 text-gray-700 font-normal">
         <option value="" className="text-sm font-bold">
           Select rating
         </option>
