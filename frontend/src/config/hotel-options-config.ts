@@ -18,3 +18,23 @@ export const hotelTypes = [
   "Pilgrimage stay",
   "Weekend Party",
 ]
+
+
+export const hotelFacilities = [
+  "Free Wifi",
+  "Parking",
+  "Hot water",
+  "Spa",
+  "Gym",
+  "AC",
+  "Private Kitchen",
+  "Yoga center",
+  "Garden",
+  "Vehicle",
+  "City Tour",
+  "Free Food",
+  "Function Hall",
+  "Free Drinks",
+  "Swimming Pool"
+  
+]

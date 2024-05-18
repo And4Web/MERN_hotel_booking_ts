@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import {hotelTypes} from '../../config/hotel-types-config';
+import {hotelTypes} from '../../config/hotel-options-config';
 import { HotelFormDataType } from '../../types';
 
 function TypeSection() {
