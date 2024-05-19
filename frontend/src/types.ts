@@ -35,3 +35,8 @@ export type HotelFormDataType = {
   starRating: number;
   imageFiles: FileList;  
 }
+
+export type PropsType = {
+  onSave: (hotelFormData: FormData) => void;
+  isLoading: boolean;
+}

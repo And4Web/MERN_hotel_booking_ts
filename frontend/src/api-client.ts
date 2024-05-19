@@ -43,7 +43,7 @@ export const validateToken = async () => {
     credentials: 'include'
   })
 
-  if(!response.ok) throw new Error("Token invalid");
+  if(!response.ok) throw new Error("Token invalid.");
 
   return response.json()
 }
@@ -54,5 +54,18 @@ export const signOut = async () => {
     method: "POST"
   })
 
-  if(!response.ok) throw new Error("Error logging out")
+  if(!response.ok) throw new Error("Error logging out.")
+}
+
+export const addMyHotel = async (hotelFormData: FormData) => {
+  
+  const response = await fetch(`${API_BASE_URL}/v1/hotels/my-hotel`, {
+    method: "POST",
+    credentials: "include",
+    body: hotelFormData,
+  })
+
+  if(!response.ok) throw new Error("Error creating new hotel.")
+ 
+  return response.json();
 }

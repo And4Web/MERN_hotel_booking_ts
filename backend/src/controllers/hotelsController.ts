@@ -12,7 +12,8 @@ export const createHotel = async (req: Request, res: Response) => {
     const imageFiles = req.files as Express.Multer.File[];
     const newHotel: HotelType = req.body;
 
-    // console.log("imageFiles >>> ", imageFiles);
+    // console.log("hotelsController >>> ", imageFiles, req.userId, newHotel);
+    
     // 1. upload images to cloudinary
     const uploadPromises = imageFiles.map(async (image) => {
       const b64 = Buffer.from(image.buffer).toString("base64");
@@ -34,7 +35,7 @@ export const createHotel = async (req: Request, res: Response) => {
     const hotel = new Hotel(newHotel);
     await hotel.save();
     // 4. return a 201 status
-    return res.status(201).json({success: true, message: "New hotel created.", hotel })
+    return res.status(201).json({success: true, message: "New hotel created." })
 
   } catch (error) {
     console.log("Error creating new hotel >>> ", error);

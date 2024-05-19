@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from "react-hook-form"
-import { HotelFormDataType } from "../../types";
+import { HotelFormDataType, PropsType } from "../../types";
 import DetailsSection from "./DetailsSection";
 import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
@@ -7,7 +7,7 @@ import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
 
 
-function ManageHotelForm() {
+function ManageHotelForm({onSave, isLoading}: PropsType) {
   const formMethods = useForm<HotelFormDataType>();
 
   const {handleSubmit} = formMethods;
@@ -16,6 +16,7 @@ function ManageHotelForm() {
     // Create a new FormData object and call the API
 
     const formData = new FormData();
+    
 
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
@@ -35,9 +36,7 @@ function ManageHotelForm() {
       formData.append(`imageFiles`, imageFile);
     })
 
-
-    
-
+    onSave(formData);
 
   })
 
@@ -51,7 +50,7 @@ function ManageHotelForm() {
         <ImagesSection/>
 
         <span className="flex justify-end">
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 font-bold hover:bg-blue-500 text-xl rounded">Save Hotel</button>
+          <button disabled={isLoading} type="submit" className="bg-blue-600 text-white px-4 py-2 font-bold hover:bg-blue-500 text-xl rounded disabled:bg-gray-500">{isLoading? "Saving..." : "Save Hotel"}</button>
         </span>
       </form>
     </FormProvider>
