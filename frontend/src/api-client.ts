@@ -1,6 +1,6 @@
 import { LoginFormDataType, RegisterFormDataType } from "./types";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 
 export const register = async(formData: RegisterFormDataType)=>{
