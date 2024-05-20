@@ -45,3 +45,4 @@ test("should allow a user to add a new hotel", async ({page})=>{
 
   await expect(page.getByText("Hotel saved")).toBeVisible();
 })
+
