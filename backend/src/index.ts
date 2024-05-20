@@ -49,6 +49,11 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/hotels', hotelsRoutes);
 
+// Catch all routes
+app.get("*", (req:Request, res:Response)=>{
+  return res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+})
+
 // custom error handling middleware
 app.use(errorMiddleware)
 
