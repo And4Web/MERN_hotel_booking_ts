@@ -15,8 +15,7 @@ function ManageHotelForm({onSave, isLoading}: PropsType) {
   const onSubmit = handleSubmit((formDataJson: HotelFormDataType)=>{
     // Create a new FormData object and call the API
 
-    const formData = new FormData();
-    
+    const formData = new FormData();  
 
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);

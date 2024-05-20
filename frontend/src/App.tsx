@@ -15,7 +15,7 @@ function App() {
           path="/"
           element={
             <Layout>
-              <p>Home page</p>
+              Home page
             </Layout>
           }
         />
@@ -23,7 +23,7 @@ function App() {
           path="/search"
           element={
             <Layout>
-              <p>Search page</p>
+              Search page
             </Layout>
           }
         />

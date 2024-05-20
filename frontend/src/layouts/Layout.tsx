@@ -1,16 +1,16 @@
-import React from "react";
+import {ReactNode} from "react";
 import Header from "../components/Header"
 import Hero from "../components/Hero"
 import Footer from "../components/Footer"
 import { useLocation } from "react-router-dom";
 
 interface Props {
-  children: React.ReactNode;
+  children?: ReactNode;
 }
 
 function Layout({children}: Props) {
   const location = useLocation();
-  // console.log("location >>> ", location);
+  
   return (
     <div className="flex flex-col min-h-screen">
       <Header/>
