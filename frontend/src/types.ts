@@ -56,4 +56,5 @@ export type HotelType = {
 export type PropsType = {
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
+  hotelData?: HotelType;
 }

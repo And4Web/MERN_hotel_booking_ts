@@ -68,3 +68,29 @@ export const getMyHotels = async (req: Request, res: Response) => {
       .json({ success: false, message: "Error fetching hotels." });
   }
 };
+
+
+// @function - display a hotel's details - user 
+// @route - /api/v1/hotels/:hotelId
+// @access - logged in users only
+export const getSingleHotel = async(req:Request, res:Response) => {
+  
+  // /api/v1/hotels/983672y6453452
+  const id = req.params.hotelId.toString();
+
+  try {
+    
+    const hotel = await Hotel.findOne({
+      _id: id,
+      userId: req.userId,
+    }, {__v:0, updatedAt:0});
+
+    if(!hotel) return res.status(404).json({success: false, message: "Hotel not found."})
+
+    return res.status(200).json({success: true, message: "Hotel Details.", hotel});
+
+
+  } catch (error) {
+    return res.status(500).json({success: false, message: "Something went wrong.", error})
+  }
+}
