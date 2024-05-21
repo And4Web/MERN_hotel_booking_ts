@@ -20,7 +20,7 @@ function EditHotel() {
   // console.log("HotelData >>> ", hotelData.hotel);
 
   return (
-    <ManageHotelForm hotelData={hotelData.hotel as HotelType} onSave={()=>console.log("saved")} isLoading={false}/>
+    <ManageHotelForm hotelData={hotelData?.hotel as HotelType} onSave={()=>console.log("saved")} isLoading={false}/>
   )
 }
 
