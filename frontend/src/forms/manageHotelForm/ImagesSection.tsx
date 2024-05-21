@@ -3,9 +3,15 @@ import { HotelFormDataType } from "../../types";
 
 
 function ImagesSection() {
-  const {register, formState: {errors}, watch} = useFormContext<HotelFormDataType>();
+  const {register, formState: {errors}, watch, setValue, } = useFormContext<HotelFormDataType>();
 
   const existingImageUrls = watch("imageUrls");
+
+  const handleDelete = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>, imageUrl: string)=>{
+    event.preventDefault();
+
+    setValue("imageUrls", existingImageUrls.filter((url)=>url !== imageUrl))
+  }
   
   return (
     <>
@@ -17,7 +23,7 @@ function ImagesSection() {
               {existingImageUrls.map((url)=>(
                 <div className="relative group">
                   <img src={url} alt="Hotel Image"  className="min-h-full object-cover"/>
-                  <button className="absolute inset-0 text-white bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 font-semibold flex items-center justify-center" >Delete</button>
+                  <button className="absolute inset-0 text-white bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 font-semibold flex items-center justify-center" onClick={(event)=>handleDelete(event, url)}>Delete</button>
                 </div>
               ))
             }
