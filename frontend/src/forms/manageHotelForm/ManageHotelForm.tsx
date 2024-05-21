@@ -17,10 +17,15 @@ function ManageHotelForm({onSave, isLoading, hotelData}: PropsType) {
     reset(hotelData);
   }, [hotelData, reset])
 
-  const onSubmit = handleSubmit((formDataJson: HotelFormDataType)=>{
+  const onSubmit = handleSubmit((formDataJson: HotelFormDataType)=>{    
+
     // Create a new FormData object and call the API
 
     const formData = new FormData();  
+
+    if(hotelData){
+      formData.append("hotelId", hotelData._id as string);
+    }
 
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
@@ -35,6 +40,13 @@ function ManageHotelForm({onSave, isLoading, hotelData}: PropsType) {
     formDataJson.facilities.forEach((facility, index)=>{
       formData.append(`facilities[${index}]`, facility);
     })
+
+
+    if(formDataJson.imageUrls){
+      formDataJson.imageUrls.forEach((url, index)=>{
+        formData.append(`imageUrls[${index}]`, url);
+      })
+    }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile)=>{
       formData.append(`imageFiles`, imageFile);
