@@ -32,9 +32,9 @@ function ImagesSection() {
         }
         <input className="w-full text-gray-700 font-normal" type="file" multiple accept="image/*" {...register('imageFiles', {
           validate: (imageFiles) => {
-            const totalLength = imageFiles.length;
+            const totalLength = imageFiles.length + (existingImageUrls?.length || 0);
             
-            if(totalLength < 1) return "At least one image must be added.";
+            if(totalLength === 0) return "At least one image must be added.";
             if(totalLength > 6) return "More than 6 images can not be uploaded.";
 
             return true;

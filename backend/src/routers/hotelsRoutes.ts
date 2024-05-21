@@ -1,5 +1,5 @@
 import { Router } from "express"; 
-import { createHotel, getMyHotels, getSingleHotel } from "../controllers/hotelsController";
+import { createHotel, getMyHotels, getSingleHotel, updateHotel } from "../controllers/hotelsController";
 import upload from "../middleware/multer";
 import verifyToken from "../middleware/auth";
 import { createHotelValidator } from "../middleware/validator";
@@ -23,5 +23,11 @@ router.get('/', verifyToken, getMyHotels)
 // @route - /api/v1/hotels/:hotelId
 // @access - logged in users only
 router.get("/:hotelId", verifyToken, getSingleHotel);
+
+
+// @function - update a hotel's details - user 
+// @route - /api/v1/hotels/:hotelId
+// @access - logged in users only
+router.put("/:hotelId", verifyToken, upload.array("imageFiles"), updateHotel);
 
 export default router;

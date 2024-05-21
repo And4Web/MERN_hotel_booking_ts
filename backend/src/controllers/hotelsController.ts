@@ -14,18 +14,8 @@ export const createHotel = async (req: Request, res: Response) => {
     // console.log("hotelsController >>> ", imageFiles, req.userId, newHotel);
 
     // 1. upload images to cloudinary
-    const uploadPromises = imageFiles.map(async (image) => {
-      const b64 = Buffer.from(image.buffer).toString("base64");
+    const imageUrls = await uploadImages(imageFiles);
 
-      let dataURI = "data:" + image.mimetype + ";base64," + b64;
-
-      const res = await cloudinary.v2.uploader.upload(dataURI, {
-        folder: "hotel-booking",
-      });
-
-      return res.url;
-    });
-    const imageUrls = await Promise.all(uploadPromises);
     // 2. if upload successfull add the URLs to new hotel
 
     newHotel.imageUrls = imageUrls;
@@ -93,4 +83,52 @@ export const getSingleHotel = async(req:Request, res:Response) => {
   } catch (error) {
     return res.status(500).json({success: false, message: "Something went wrong.", error})
   }
+}
+
+// @function - update a hotel's details - user 
+// @route - /api/v1/hotels/:hotelId
+// @access - logged in users only
+export const updateHotel = async (req: Request, res: Response) => {
+  try {
+    const updatedHotel: HotelType = req.body;
+    updatedHotel.lastUpdated = new Date();
+
+    const hotel = await Hotel.findOneAndUpdate({
+      _id: req.params.hotelId,
+      userId: req.userId,
+    }, updatedHotel, {new: true});
+
+    if(!hotel) return res.status(404).json({success: false, message: "Hotel not found."})
+
+    const files = req.files as Express.Multer.File[];
+
+    const upadatedImageUrls = await uploadImages(files);
+
+    hotel.imageUrls = [...upadatedImageUrls, ...(updatedHotel.imageUrls || [])];
+
+    await hotel.save();
+
+    return res.status(201).json({success: true, message: "Hotel updated.", hotel});
+    
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({success: false, message: "Something went wrong", error});
+  }
+}
+
+async function uploadImages(imageFiles: Express.Multer.File[]) {
+  const uploadPromises = imageFiles.map(async (image) => {
+    const b64 = Buffer.from(image.buffer).toString("base64");
+
+    let dataURI = "data:" + image.mimetype + ";base64," + b64;
+
+    const res = await cloudinary.v2.uploader.upload(dataURI, {
+      folder: "hotel-booking",
+    });
+
+    return res.url;
+  });
+
+  const imageUrls = await Promise.all(uploadPromises);
+  return imageUrls;
 }
