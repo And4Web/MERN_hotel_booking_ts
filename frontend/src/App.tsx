@@ -16,8 +16,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Layout>
-              Home page
+            <Layout>              
             </Layout>
           }
         />
