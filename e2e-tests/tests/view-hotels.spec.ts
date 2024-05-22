@@ -29,7 +29,7 @@ test("should display hotels", async({page})=>{
   await expect(page.getByText("3 adults, 1 children")).toBeVisible();
   await expect(page.getByText("4 Star rating")).toBeVisible();
 
-  await expect(page.getByRole('link', {name: "View Details"})).toBeVisible();
+  await expect(page.getByRole('link', {name: "View Details"}).first()).toBeVisible();
   await expect(page.getByRole('link', {name: "Add Hotel"})).toBeVisible();
 
 })

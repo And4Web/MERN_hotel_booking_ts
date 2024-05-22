@@ -2,12 +2,12 @@ import { useFormContext } from "react-hook-form"
 import { HotelFormDataType } from "../../types";
 
 
-function DetailsSection() {
+function DetailsSection({isEditHotel}) {
   const {register, formState: {errors}} = useFormContext<HotelFormDataType>();
   // console.log(register);
   return (
     <div className="flex flex-col gap-4 ">
-      <h1 className="text-3xl font-bold mb-3">Add Hotel</h1>
+      <h1 className="text-3xl font-bold mb-3">{isEditHotel ? "Edit Hotel" : "Add Hotel"}</h1>
       <label className="text-gray-700 text-sm font-bold flex-1">Name
       <input
         type="text"

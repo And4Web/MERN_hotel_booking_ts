@@ -26,7 +26,7 @@ function EditHotel() {
     }
   })
 
-
+ 
   const handleSave = (hotelFormData: FormData) => {
     mutate(hotelFormData)
   }

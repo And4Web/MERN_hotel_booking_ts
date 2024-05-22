@@ -59,7 +59,7 @@ function ManageHotelForm({onSave, isLoading, hotelData}: PropsType) {
   return (
     <FormProvider {...formMethods} >
       <form className="flex flex-col gap-10" onSubmit={onSubmit}>
-        <DetailsSection />
+        <DetailsSection isEditHotel={hotelData ? true : false}/>
         <TypeSection />
         <FacilitiesSection />
         <GuestsSection />
