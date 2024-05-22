@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import cloudinary from "cloudinary";
-import { HotelType } from "../types/types";
+import { HotelSearchResponse, HotelType } from "../types/types";
 import Hotel from "../models/hotels";
 
 // @function - create a hotel
@@ -132,3 +132,5 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
   const imageUrls = await Promise.all(uploadPromises);
   return imageUrls;
 }
+
+

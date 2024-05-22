@@ -19,12 +19,13 @@ import errorMiddleware from "./middleware/error";
 import authRoutes from './routers/authRoutes';
 import userRoutes from './routers/userRoutes';
 import hotelsRoutes from './routers/hotelsRoutes';
+import searchRoutes from './routers/searchRoutes';
 
 
-// mongoose.connect(process.env.MONGODB_DRIVER_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_DRIVER_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
+mongoose.connect(process.env.MONGODB_DRIVER_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_DRIVER_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
 
 // for test only
-mongoose.connect(process.env.MONGODB_LOCAL_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_LOCAL_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
+// mongoose.connect(process.env.MONGODB_LOCAL_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_LOCAL_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
 
 const app = express();
 app.use(cookieParser());
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/hotels', hotelsRoutes);
+app.use('/api/v1/search', searchRoutes)
 
 // Catch all routes
 app.get("*", (req:Request, res:Response)=>{
