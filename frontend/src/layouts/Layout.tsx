@@ -18,11 +18,12 @@ function Layout({ children }: Props) {
       {location.pathname === "/" && (
         <>
           <Hero />
-          <div className="mx-auto px-2">
-            <SearchBar />
-          </div>
+          
         </>
       )}
+      <div className={`container mx-auto px-2 ${location.pathname !== "/" ? "mt-4" : ""}`}>
+            <SearchBar />
+          </div>
 
       <div className="container mx-auto py-10 flex-1">{children}</div>
       <Footer />

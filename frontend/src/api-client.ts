@@ -1,4 +1,4 @@
-import { HotelType, LoginFormDataType, RegisterFormDataType } from "./types";
+import { HotelSearchResponse, HotelType, LoginFormDataType, RegisterFormDataType, SearchParamsType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
 
@@ -103,4 +103,24 @@ export  const updateMyHotelById = async(hotelFormData: FormData)=>{
 
   return response.json()
 
+}
+
+
+export const searchHotels = async (searchParams: SearchParamsType): Promise<HotelSearchResponse> => {
+
+  const queryParams = new URLSearchParams();
+
+  queryParams.append("destination", searchParams.destination || "");
+  queryParams.append("checkIn", searchParams.checkIn || "");
+  queryParams.append("checkOut", searchParams.checkOut || "");
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
+
+
+  const response = await fetch(`${API_BASE_URL}/v1/search/hotels?${queryParams}`);
+
+  if(!response.ok) throw new Error('Search results Error.');
+
+  return response.json();
 }

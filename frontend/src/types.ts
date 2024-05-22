@@ -84,3 +84,12 @@ export type SearchContextType = {
     childCount: number
   ) => void;
 };
+
+export type SearchParamsType = {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  page?: string;
+};
