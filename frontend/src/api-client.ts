@@ -120,7 +120,8 @@ export const searchHotels = async (searchParams: SearchParamsType): Promise<Hote
 
   const response = await fetch(`${API_BASE_URL}/v1/search/hotels?${queryParams}`);
 
-  if(!response.ok) throw new Error('Search results Error.');
+  if(!response.ok) throw new Error('Error fetching hotels.');
 
+  
   return response.json();
 }

@@ -13,9 +13,11 @@ export const searchHotels = async(req: Request, res: Response)=>{
 
     const skip = (pageNumber - 1) * pageSize;
 
-    const hotels = await Hotel.find().skip(skip).limit(pageSize);
+    const hotels = await Hotel.find().skip(skip).limit(pageSize);;
+    // don't send double query to database, do the pagination logic on the server yourself ---
+    // const paginatedHotels = await Hotel.find().skip(skip).limit(pageSize);
 
-    const total = hotels.length;
+    const total = await Hotel.countDocuments();
 
     const response: HotelSearchResponse = {
       data: hotels,
@@ -27,7 +29,7 @@ export const searchHotels = async(req: Request, res: Response)=>{
     }
 
     return res.status(200).json({success: true, message: "Hotels Search Result", response});
-    // return res.json({message: "Hello Search!"})
+  
 
   } catch (error) {
     console.log("Error >>> ", error)
