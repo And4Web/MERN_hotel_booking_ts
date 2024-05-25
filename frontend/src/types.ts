@@ -93,3 +93,9 @@ export type SearchParamsType = {
   childCount?: string;
   page?: string;
 };
+
+export type PaginationProps = {
+  page: number;
+  pages: number;
+  onPageChange: (page: number) => void
+}

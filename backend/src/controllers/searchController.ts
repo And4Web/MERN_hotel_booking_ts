@@ -9,7 +9,9 @@ import { HotelSearchResponse } from "../types/types";
 export const searchHotels = async(req: Request, res: Response)=>{
   try {
     const pageSize = 5;
-    const pageNumber = parseInt(req.query.pageNumber ? req.query.pageNumber.toString() : "1");
+    const pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1");
+
+    // console.log("page number >>> ", req.query, pageNumber);
 
     const skip = (pageNumber - 1) * pageSize;
 
