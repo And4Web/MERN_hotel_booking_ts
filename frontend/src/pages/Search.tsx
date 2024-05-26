@@ -20,9 +20,13 @@ function Search() {
     page: page.toString(),
   }
 
-  const {data:searchHotelData} = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
+  // const {data: {response: {data:searchHotelData, pagination}}} = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
+
+  const {data} = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
+  const response = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
   
-  console.log("searchHotelData >>> ", searchHotelData)
+  const searchHotelData = data?.response?.data;
+  const pagination = data?.response?.pagination;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
@@ -37,17 +41,17 @@ function Search() {
         <div className="flex flex-col gap-5">
           <div className="flex justify-between items-center">
             <span className="text-xl font-bold">
-              {searchHotelData?.response.pagination.total} hotels found {search.destination ? `in ${search.destination} ` : ""}
+              {pagination?.total} hotels found {search?.destination ? `in ${search?.destination} ` : ""}
             </span>
             {/* TODO sort options */}
 
           </div>
-          {searchHotelData?.response?.data?.map((hotel, index)=>(
+          {searchHotelData?.map((hotel, index)=>(
             <SearchResultCard key={index} hotel={hotel}/>
           ))}
 
           <div>
-            <Pagination page={searchHotelData?.response?.pagination?.page || 1} pages={searchHotelData?.response!.pagination.pages || 1} onPageChange={(page)=>setPage(page)}/>
+            <Pagination page={pagination?.page || 1} pages={pagination?.pages || 1} onPageChange={(page)=>setPage(page)}/>
           </div>
         </div>
 

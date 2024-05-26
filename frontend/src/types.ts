@@ -60,7 +60,9 @@ export type PropsType = {
   hotelData?: HotelType;
 };
 
-export type HotelSearchResponse = {
+export type HotelSearchResponse = { 
+  success: boolean;
+  message: string;
   data: HotelType[];
   pagination: {
     total: number;

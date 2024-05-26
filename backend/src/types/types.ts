@@ -28,6 +28,8 @@ export type HotelType = {
 }
 
 export type HotelSearchResponse = {
+  success: boolean;
+  message: string;
   data: HotelType[];
   pagination: {
     total: number;
@@ -35,3 +37,4 @@ export type HotelSearchResponse = {
     pages: number;
   }
 }
+

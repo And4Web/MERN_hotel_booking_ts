@@ -22,6 +22,8 @@ export const searchHotels = async(req: Request, res: Response)=>{
     const total = await Hotel.countDocuments();
 
     const response: HotelSearchResponse = {
+      success: true, 
+      message: "Hotels Search Result", 
       data: hotels,
       pagination: {
         total,
@@ -30,8 +32,7 @@ export const searchHotels = async(req: Request, res: Response)=>{
       }
     }
 
-    return res.status(200).json({success: true, message: "Hotels Search Result", response});
-  
+    return res.status(200).json({response});  
 
   } catch (error) {
     console.log("Error >>> ", error)

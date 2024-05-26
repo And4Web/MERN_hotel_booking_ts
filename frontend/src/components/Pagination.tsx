@@ -11,7 +11,7 @@ function Pagination({ page, pages, onPageChange }: PaginationProps) {
     <div className="flex justify-center">
       <ul className="flex border border-slate-300">
         {pageNumbers.map((number, index) => {
-          console.log("page, number >>> ", page, number)
+          
           return (
           <li
             key={index}
