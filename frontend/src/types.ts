@@ -94,6 +94,11 @@ export type SearchParamsType = {
   adultCount?: string;
   childCount?: string;
   page?: string;
+  facilities?: string[];
+  types?: string[];
+  starRatings?: string[];
+  maxPrice?: string;
+  sortOption?: string;
 };
 
 export type PaginationProps = {

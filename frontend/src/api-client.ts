@@ -116,7 +116,21 @@ export const searchHotels = async (searchParams: SearchParamsType): Promise<Hote
   queryParams.append("adultCount", searchParams.adultCount || "");
   queryParams.append("childCount", searchParams.childCount || "");
   queryParams.append("page", searchParams.page || "");
+  
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOption", searchParams.sortOption || "");
+ 
+  searchParams.facilities?.forEach((facility)=>{
+    queryParams.append("facilities", facility);
+  })
 
+  searchParams.types?.forEach((type)=>{
+    queryParams.append("types", type);
+  })
+
+  searchParams.starRatings?.forEach((star)=>{
+    queryParams.append("starRatings", star);
+  })
 
   const response = await fetch(`${API_BASE_URL}/v1/search/hotels?${queryParams}`);
 
