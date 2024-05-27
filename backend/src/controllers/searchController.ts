@@ -40,7 +40,7 @@ const constructSearchQuery = (queryParams: any): any => {
   if(queryParams.starRatings){
     const starRatings = Array.isArray(queryParams.starRatings) ? queryParams.starRatings.map((star: string)=>parseInt(star)) : parseInt(queryParams.starRatings);
     
-    constructedQuery.starRating = {$eq: starRatings};
+    constructedQuery.starRating = {$in: starRatings};
   }
   
   if(queryParams.maxPrice){
@@ -60,6 +60,8 @@ const constructSearchQuery = (queryParams: any): any => {
 export const searchHotels = async(req: Request, res: Response)=>{
   try {
     const query = constructSearchQuery(req.query);
+
+    // console.log("Query >>> ", query);
 
     let sortOptions = {};
 
