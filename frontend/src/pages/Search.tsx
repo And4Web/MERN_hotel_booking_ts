@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import SearchResultCard from "../components/SearchResultCard";
 import Pagination from "../components/Pagination";
 import StarRatingFilter from "../components/StarRatingFilter";
+import HotelTypesFilter from "../components/HotelTypesFilter";
+import FacilitiesFilter from "../components/FacilitiesFilter";
 
 
 function Search() {
@@ -13,6 +15,8 @@ function Search() {
   const [page, setPage] = useState<number>(1);
 
   const [ selectedStars, setSelectedStars] = useState<string[]>([]);
+  const [ selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
+  const [ selectedFacilitiesTypes, setSelectedFacilitiesTypes] = useState<string[]>([]);
   
   const searchParams = {
     destination: search.destination,
@@ -22,6 +26,8 @@ function Search() {
     childCount: search.childCount.toString(),
     page: page.toString(),
     starRatings: selectedStars,
+    types: selectedHotelTypes,
+    facilities: selectedFacilitiesTypes,
 
   }
 
@@ -39,6 +45,18 @@ function Search() {
     setSelectedStars((prevStars) => event.target.checked ? [...prevStars, starRating] : prevStars.filter((star) => star !== starRating));
   }
 
+  const handleHotelTypes = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const hotelType = event.target.value;
+
+    setSelectedHotelTypes((prevHotelTypes)=>event.target.checked ? [...prevHotelTypes, hotelType] : prevHotelTypes.filter((type)=> type !== hotelType))
+  }
+
+  const handleFacilitiesType = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const facilityType = event.target.value;
+
+    setSelectedFacilitiesTypes((prevFacilities)=>event.target.checked ? [...prevFacilities, facilityType] : prevFacilities.filter(facility=> facility !== facilityType));
+  }
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
       <div className="rounded-lg border border-slate-300 sticky top-10 p-5 h-fit">
@@ -46,6 +64,8 @@ function Search() {
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">Filter by:</h3>
           {/*TODO FILTERS */}
           <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange}/>
+          <HotelTypesFilter selectedHotelTypes={selectedHotelTypes} onChange={handleHotelTypes}/>
+          <FacilitiesFilter selectedFacilitiesTypes={selectedFacilitiesTypes} onChange={handleFacilitiesType}/>
         </div>
 
       </div>
