@@ -118,7 +118,7 @@ export const searchHotels = async (searchParams: SearchParamsType): Promise<Hote
   queryParams.append("page", searchParams.page || "");
   
   queryParams.append("maxPrice", searchParams.maxPrice || "");
-  queryParams.append("sortOption", searchParams.sortOption || "");
+  queryParams.append("sortOptions", searchParams.sortOptions || "");
  
   searchParams.facilities?.forEach((facility)=>{
     queryParams.append("facilities", facility);

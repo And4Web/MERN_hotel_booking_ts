@@ -17,11 +17,10 @@ function Layout({ children }: Props) {
       <Header />
       {location.pathname === "/" && (
         <>
-          <Hero />
-          
+          <Hero />          
         </>
       )}
-      <div className={`container mx-auto px-2 ${location.pathname !== "/" ? "mt-4" : ""}`}>
+      <div className={`container mx-auto px-2 ${location.pathname !== "/" ? "mt-4" : ""} `}>
             <SearchBar />
           </div>
 

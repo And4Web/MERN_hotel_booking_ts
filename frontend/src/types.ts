@@ -98,7 +98,7 @@ export type SearchParamsType = {
   types?: string[];
   starRatings?: string[];
   maxPrice?: string;
-  sortOption?: string;
+  sortOptions?: string;
 };
 
 export type PaginationProps = {

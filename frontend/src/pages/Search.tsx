@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination";
 import StarRatingFilter from "../components/StarRatingFilter";
 import HotelTypesFilter from "../components/HotelTypesFilter";
 import FacilitiesFilter from "../components/FacilitiesFilter";
+import PriceFilter from "../components/PriceFilter";
 
 
 function Search() {
@@ -17,6 +18,8 @@ function Search() {
   const [ selectedStars, setSelectedStars] = useState<string[]>([]);
   const [ selectedHotelTypes, setSelectedHotelTypes] = useState<string[]>([]);
   const [ selectedFacilitiesTypes, setSelectedFacilitiesTypes] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
+  const [sortOptions, setSortOptions] = useState<string>("");
   
   const searchParams = {
     destination: search.destination,
@@ -28,7 +31,8 @@ function Search() {
     starRatings: selectedStars,
     types: selectedHotelTypes,
     facilities: selectedFacilitiesTypes,
-
+    maxPrice: selectedPrice?.toString(),
+    sortOptions,
   }
 
   // const {data: {response: {data:searchHotelData, pagination}}} = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
@@ -57,15 +61,20 @@ function Search() {
     setSelectedFacilitiesTypes((prevFacilities)=>event.target.checked ? [...prevFacilities, facilityType] : prevFacilities.filter(facility=> facility !== facilityType));
   }
 
+  const handlePriceChange = (value?: number) => {
+    setSelectedPrice(value);
+  }
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div className="rounded-lg border border-slate-300 sticky top-10 p-5 h-fit">
+    <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-5 xs:mx-1 md:mx-2 lg:mx-3">
+      <div className="rounded-lg border border-slate-300 md:sticky top-10 p-5 h-fit">
         <div className="space-y-5">
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">Filter by:</h3>
-          {/*TODO FILTERS */}
+          {/* FILTERS */}
           <StarRatingFilter selectedStars={selectedStars} onChange={handleStarsChange}/>
           <HotelTypesFilter selectedHotelTypes={selectedHotelTypes} onChange={handleHotelTypes}/>
           <FacilitiesFilter selectedFacilitiesTypes={selectedFacilitiesTypes} onChange={handleFacilitiesType}/>
+          <PriceFilter selectedMaxPrice={selectedPrice} onChange={handlePriceChange}/>
         </div>
 
       </div>
@@ -75,8 +84,13 @@ function Search() {
             <span className="text-xl font-bold">
               {pagination?.total} hotels found {search?.destination ? `in ${search?.destination} ` : ""}
             </span>
-            {/* TODO sort options */}
-
+            {/*  sort options */}
+            <select className="border rounded p-2" value={sortOptions} onChange={(event)=>setSortOptions(event.target.value)}>
+              <option value="">Sort by</option>
+              <option value="starRating">Star ratings</option>
+              <option value="pricePerNightAsc">Price per night - Low to High</option>
+              <option value="pricePerNightDesc">Price per night - High to Low</option>
+            </select>
           </div>
           {searchHotelData?.map((hotel, index)=>(
             <SearchResultCard key={index} hotel={hotel}/>
