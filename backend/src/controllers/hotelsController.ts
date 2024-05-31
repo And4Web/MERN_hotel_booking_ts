@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import cloudinary from "cloudinary";
 import { HotelSearchResponse, HotelType } from "../types/types";
 import Hotel from "../models/hotels";
+import { validationResult } from "express-validator";
 
 // @function - create a hotel
 // @route - /api/v1/hotels/my-hotel
@@ -133,4 +134,24 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
   return imageUrls;
 }
 
+// @function - get a hotel's details
+// @route - /api/v1/hotels/:hotelId
+// @access - public
+export const getHotelDetails = async(req:Request, res: Response)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({success: false, errors: errors.array()})
+  }
 
+  const hotelId = req.params.hotelId.toString();
+
+  try {
+    const hotel = await Hotel.findById(hotelId);
+
+    if(!hotel) return res.status(400).json({success: false, message: "Hotel not found."})
+
+    return res.status(200).json({success: true, message: "Hotel details.", hotel});
+  } catch (error) {
+    return res.status(500).json({success: false, message: "Error fetching hotel details."})
+  }
+}

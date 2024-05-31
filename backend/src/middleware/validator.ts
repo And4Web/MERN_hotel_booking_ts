@@ -1,5 +1,5 @@
 
-import {body, check} from 'express-validator';
+import {body, check, param} from 'express-validator';
 
 export const registerValidator = [
   check("firstName", "firstName is required and should be at least 3 characters long.").isString().isLength({min:3}),
@@ -26,3 +26,7 @@ export const createHotelValidator = [
   body("facilities").notEmpty().isArray().withMessage("facilities in the hotel is required."),
   body("")
 ]
+
+export const hotelIdValidator = [
+  param("hotelId").notEmpty().withMessage("Hotel Id is required.")
+];
