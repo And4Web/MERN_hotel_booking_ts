@@ -76,7 +76,6 @@ function Search() {
           <FacilitiesFilter selectedFacilitiesTypes={selectedFacilitiesTypes} onChange={handleFacilitiesType}/>
           <PriceFilter selectedMaxPrice={selectedPrice} onChange={handlePriceChange}/>
         </div>
-
       </div>
 
         <div className="flex flex-col gap-5">

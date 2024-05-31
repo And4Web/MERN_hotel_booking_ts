@@ -16,7 +16,7 @@ function PriceFilter({selectedMaxPrice, onChange}: Props) {
       <option value="">Select Max Price</option>
       {[ 300, 500, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 8000, 10000, 20000, 30000, 40000, 50000].map((price)=>{
         return (
-          <option value={price}>{price}</option>
+          <option value={price}>&#8377; {price}</option>
         )
       })}
       </select>
