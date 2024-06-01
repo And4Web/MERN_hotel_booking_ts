@@ -60,7 +60,7 @@ export type PropsType = {
   hotelData?: HotelType;
 };
 
-export type HotelSearchResponse = { 
+export type HotelSearchResponse = {
   success: boolean;
   message: string;
   data: HotelType[];
@@ -104,5 +104,11 @@ export type SearchParamsType = {
 export type PaginationProps = {
   page: number;
   pages: number;
-  onPageChange: (page: number) => void
-}
+  onPageChange: (page: number) => void;
+};
+
+export type FetchHotelDetailResponseType = {
+  success: boolean;
+  message: string;
+  hotel: HotelType;
+};

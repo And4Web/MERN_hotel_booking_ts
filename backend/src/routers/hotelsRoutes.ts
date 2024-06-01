@@ -31,8 +31,8 @@ router.get("/:hotelId", verifyToken, getSingleHotel);
 router.put("/:hotelId", verifyToken, upload.array("imageFiles"), updateHotel);
 
 // @method - GET - get hotel's details 
-// @route - /api/v1/hotels/:hotelId
+// @route - /api/v1/hotels/detail/:hotelId
 // @access - public
-router.get('/:hotelId', hotelIdValidator, getHotelDetails)
+router.get('/detail/:hotelId', hotelIdValidator, getHotelDetails)
 
 export default router;

@@ -1,4 +1,4 @@
-import { HotelSearchResponse, HotelType, LoginFormDataType, RegisterFormDataType, SearchParamsType } from "./types";
+import { FetchHotelDetailResponseType, HotelSearchResponse, HotelType, LoginFormDataType, RegisterFormDataType, SearchParamsType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
 
@@ -142,11 +142,12 @@ export const searchHotels = async (searchParams: SearchParamsType): Promise<Hote
 }
 
 
-export const fetchHotelById = async(hotelId: string) => {
-  const response = await fetch(`${API_BASE_URL}/v1/hotels/${hotelId}`);
+export const fetchHotelById = async(hotelId: string):Promise<FetchHotelDetailResponseType> => {
+  const response = await fetch(`${API_BASE_URL}/v1/hotels/detail/${hotelId}`);
 
   if(!response.ok) throw new Error("Error fetching hotel details");
 
+  // console.log("response fetch Hotel details >>> ", response)
   return response.json();
 
 }

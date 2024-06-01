@@ -135,7 +135,7 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
 }
 
 // @function - get a hotel's details
-// @route - /api/v1/hotels/:hotelId
+// @route - /api/v1/hotels/detail/:hotelId
 // @access - public
 export const getHotelDetails = async(req:Request, res: Response)=>{
   const errors = validationResult(req);
