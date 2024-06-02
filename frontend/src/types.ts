@@ -112,3 +112,10 @@ export type FetchHotelDetailResponseType = {
   message: string;
   hotel: HotelType;
 };
+
+export type GuestInfoFormType = {
+  checkIn: Date;
+  checkOut: Date;
+  adultCount: number;
+  childCount: number;
+}
