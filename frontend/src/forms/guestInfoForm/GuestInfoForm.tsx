@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { GuestInfoFormType } from "../../types";
 import DatePicker from "react-datepicker";
+import { useSearchContext } from "../../contexts/SearchContext";
+import { useAppContext } from "../../contexts/AppContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {
   hotelId: string;
@@ -8,13 +11,26 @@ type Props = {
 };
 
 function GuestInfoForm({ hotelId, pricePerNight }: Props) {
+  const search = useSearchContext();
+  const {isLoggedin} = useAppContext();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     watch,
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<GuestInfoFormType>();
+  } = useForm<GuestInfoFormType>({
+    defaultValues: {
+      checkIn: search.checkIn,
+      checkOut: search.checkOut,
+      adultCount: search.adultCount,
+      childCount: search.childCount,
+    }
+  });
 
   const checkIn = watch("checkIn");
   const checkOut = watch("checkOut");
@@ -23,13 +39,32 @@ function GuestInfoForm({ hotelId, pricePerNight }: Props) {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
+  const onSignInClick = (data: GuestInfoFormType) => {
+    search.saveSearchValues("", data.checkIn, data.checkOut, data.adultCount, data.childCount);
+
+    navigate('/sign-in', {
+      state: {
+        from: location
+      }
+    })
+  }
+
+  
+  const onSubmit = (data: GuestInfoFormType) => {
+    search.saveSearchValues("", data.checkIn, data.checkOut, data.adultCount, data.childCount);
+
+    navigate(`/hotel/${hotelId}/booking`)
+  }
+
+  
+
   return (
     <div className="flex flex-col p-4 bg-blue-200 gap-4">
       <h3 className="text-md font-bold">
         {" "}
-        &#8377; {pricePerNight}/- per night
+        &#8377; {pricePerNight} per night
       </h3>
-      <form action="">
+      <form onSubmit={isLoggedin ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
         <div className="grid grid-cols-1 gap-4 items-center">
           <div>
             <DatePicker
@@ -105,6 +140,12 @@ function GuestInfoForm({ hotelId, pricePerNight }: Props) {
               )
             }
           </div>
+
+          {isLoggedin ? (
+            <button className="bg-blue-600 text-white font-semibold rounded text-xl p-2 w-full hover:bg-blue-500 ">Book now</button>
+          ):(
+            <button className="bg-blue-600 text-white font-semibold rounded text-xl p-2 w-full hover:bg-blue-500 ">Sign in to book</button>
+          )}
         </div>
       </form>
     </div>

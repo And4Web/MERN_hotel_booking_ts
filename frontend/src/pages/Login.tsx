@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { LoginFormDataType } from "../types";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 
 import * as apiClient from '../api-client';
@@ -12,6 +12,7 @@ export default function Login() {
   const {showToast} = useAppContext();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { register, formState: {errors}, handleSubmit } = useForm<LoginFormDataType>();
 
@@ -22,7 +23,7 @@ export default function Login() {
       // 1. show the toast
       showToast({message: "Sign in successfull", type: "SUCCESS"});
       // 2. navigate to home page
-      navigate("/");
+      navigate(location?.state?.from?.pathname || "/");
     },
     onError: (error: Error) => {
       console.log(error)
