@@ -151,3 +151,13 @@ export const fetchHotelById = async(hotelId: string):Promise<FetchHotelDetailRes
   return response.json();
 
 }
+
+export const fetchLoggedinUserDetails = async () => {
+  const response = await fetch(`${API_BASE_URL}/v1/users/me`, {
+    credentials: "include"
+  })
+
+  if(!response.ok) throw new Error("Error fetching user details.");
+
+  return response.json();
+}
