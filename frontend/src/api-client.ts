@@ -1,4 +1,4 @@
-import { FetchHotelDetailResponseType, HotelSearchResponse, HotelType, LoginFormDataType, RegisterFormDataType, SearchParamsType } from "./types";
+import { FetchHotelDetailResponseType, HotelSearchResponse, HotelType, LoginFormDataType, RegisterFormDataType, SearchParamsType, UserResponseType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
 
@@ -152,7 +152,7 @@ export const fetchHotelById = async(hotelId: string):Promise<FetchHotelDetailRes
 
 }
 
-export const fetchLoggedinUserDetails = async () => {
+export const fetchLoggedinUserDetails = async ():Promise<UserResponseType> => {
   const response = await fetch(`${API_BASE_URL}/v1/users/me`, {
     credentials: "include"
   })

@@ -119,3 +119,21 @@ export type GuestInfoFormType = {
   adultCount: number;
   childCount: number;
 }
+
+export type UserResponseType = {
+  success: boolean;
+  message: string;
+  user: {
+    _id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  }
+}
+
+export type BookingFormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+
+}
