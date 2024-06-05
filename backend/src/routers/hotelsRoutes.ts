@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createHotel, createPaymentIntent, getHotelDetails, getMyHotels, getSingleHotel, updateHotel } from "../controllers/hotelsController";
+import { createHotel, CreateHotelBooking, createPaymentIntent, getHotelDetails, getMyHotels, getSingleHotel, updateHotel } from "../controllers/hotelsController";
 import verifyToken from "../middleware/auth";
 import upload from "../middleware/multer";
 import { createHotelValidator, hotelIdValidator } from "../middleware/validator";
@@ -36,10 +36,16 @@ router.put("/:hotelId", verifyToken, upload.array("imageFiles"), updateHotel);
 router.get('/detail/:hotelId', hotelIdValidator, getHotelDetails)
 
 
+// @method - POST - create hotel booking 
+// @route - /api/v1/hotels/:hotelId/bookings
+// @access - protected
+router.post('/:hotelId/bookings', verifyToken, CreateHotelBooking);
+
 // @method - POST - hotel booking payment intent creation 
 // @route - /api/v1/hotels/:hotelId/bookings/payment-intent
 // @access - protected
 router.post('/:hotelId/bookings/payment-intent', verifyToken, createPaymentIntent);
+
 
 
 

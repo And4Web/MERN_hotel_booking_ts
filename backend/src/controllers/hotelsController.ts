@@ -159,6 +159,19 @@ export const getHotelDetails = async(req:Request, res: Response)=>{
   }
 }
 
+
+// @function - create hotel booking 
+// @route - /api/v1/hotels/:hotelId/bookings
+// @access - protected
+export const CreateHotelBooking = async (req:Request, res:Response) => {
+  try {
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({success: false, message: "Something went wrong."})
+  }
+}
+
 // @function - hotel booking payment intent creation 
 // @route - /api/v1/hotels/:hotelId/bookings/payment-intent
 // @access - protected
