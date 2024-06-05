@@ -3,6 +3,9 @@ import cloudinary from "cloudinary";
 import { HotelSearchResponse, HotelType } from "../types/types";
 import Hotel from "../models/hotels";
 import { validationResult } from "express-validator";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 // @function - create a hotel
 // @route - /api/v1/hotels/my-hotel
@@ -154,4 +157,43 @@ export const getHotelDetails = async(req:Request, res: Response)=>{
   } catch (error) {
     return res.status(500).json({success: false, message: "Error fetching hotel details."})
   }
+}
+
+// @function - hotel booking payment intent creation 
+// @route - /api/v1/hotels/:hotelId/bookings/payment-intent
+// @access - protected
+export const createPaymentIntent = async (req:Request, res:Response) => {
+  // 3 Steps:
+  // 1. Total Cost
+  // 2. Hotel Id  
+  // 3. User Id
+
+  const {numberOfNights} = req.body;
+  const {hotelId} = req.params;
+
+  const hotel = await Hotel.findById(hotelId);
+
+  if(!hotel) return res.status(400).json({success: false, message: "Hotel not found."})
+
+  const totalCost = hotel.pricePerNight * numberOfNights;
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: totalCost,
+    currency: "inr",
+    metadata: {
+      hotelId,
+      userId: req.userId
+    }
+  });
+
+  if(!paymentIntent.client_secret) return res.status(500).json({success: false, message: "Error creating Payment intent."});
+
+  const response = {
+    paymentIntentId: paymentIntent.id,
+    clientSecret: paymentIntent.client_secret.toString(),
+    totalCost
+  }
+
+  return res.status(200).json({success: true, message: "", response});
+
 }

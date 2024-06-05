@@ -135,5 +135,10 @@ export type BookingFormData = {
   firstName: string;
   lastName: string;
   email: string;
+}
 
+export type PaymentIntentResponse = {
+  paymentIntentId: string;
+  clientSecret: string;
+  totalCost: number;
 }
