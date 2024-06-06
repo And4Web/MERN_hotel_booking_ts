@@ -36,18 +36,16 @@ router.put("/:hotelId", verifyToken, upload.array("imageFiles"), updateHotel);
 router.get('/detail/:hotelId', hotelIdValidator, getHotelDetails)
 
 
-// @method - POST - create hotel booking 
-// @route - /api/v1/hotels/:hotelId/bookings
-// @access - protected
-router.post('/:hotelId/bookings', verifyToken, CreateHotelBooking);
-
 // @method - POST - hotel booking payment intent creation 
 // @route - /api/v1/hotels/:hotelId/bookings/payment-intent
 // @access - protected
 router.post('/:hotelId/bookings/payment-intent', verifyToken, createPaymentIntent);
 
 
-
+// @method - POST - create hotel booking after payment confirmation
+// @route - /api/v1/hotels/:hotelId/bookings
+// @access - protected
+router.post('/:hotelId/bookings', verifyToken, CreateHotelBooking);
 
 
 export default router;

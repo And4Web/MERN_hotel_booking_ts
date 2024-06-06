@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import cloudinary from "cloudinary";
-import { HotelSearchResponse, HotelType } from "../types/types";
+import { BookingType, HotelSearchResponse, HotelType } from "../types/types";
 import Hotel from "../models/hotels";
 import { validationResult } from "express-validator";
 import Stripe from "stripe";
@@ -160,18 +160,6 @@ export const getHotelDetails = async(req:Request, res: Response)=>{
 }
 
 
-// @function - create hotel booking 
-// @route - /api/v1/hotels/:hotelId/bookings
-// @access - protected
-export const CreateHotelBooking = async (req:Request, res:Response) => {
-  try {
-    
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({success: false, message: "Something went wrong."})
-  }
-}
-
 // @function - hotel booking payment intent creation 
 // @route - /api/v1/hotels/:hotelId/bookings/payment-intent
 // @access - protected
@@ -209,4 +197,46 @@ export const createPaymentIntent = async (req:Request, res:Response) => {
 
   return res.status(200).json({success: true, message: "", response});
 
+}
+
+// @function - create hotel booking after payment confirmation 
+// @route - /api/v1/hotels/:hotelId/bookings
+// @access - protected
+export const CreateHotelBooking = async (req:Request, res:Response) => {
+  try {
+    const paymentIntetId = req.body.paymentIntentId;
+
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntetId as string);
+
+    if(!paymentIntent) return res.status(400).json({success: false, message: "Payment intent not found in the request."})
+
+    if(paymentIntent.metadata.hotelId !== req.params.hotelId || paymentIntent.metadata.userId !== req.userId){
+      return res.status(400).json({success: false, message: "Payment intent mismatch."});
+    }
+
+    if(paymentIntent.status !== "succeeded"){
+      return res.status(400).json({success: false, message: `Payment intent did not succeed - ${paymentIntent.status}`})
+    }
+
+    const newBooking: BookingType = {
+      ...req.body,
+      userId: req.userId,
+    }
+
+    const hotel = await Hotel.findOneAndUpdate({_id: req.params.hotelId}, {
+      $push: {
+        bookings: newBooking
+      }
+    });
+
+    if(!hotel) return res.status(400).json({success: false, message: "Hotel not found."});
+
+    await hotel.save();
+
+    return res.status(200).json({success: true, message: "New booking created."});
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({success: false, message: "Something went wrong."})
+  }
 }

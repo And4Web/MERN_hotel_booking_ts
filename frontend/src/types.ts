@@ -1,3 +1,5 @@
+import { Stripe } from "@stripe/stripe-js";
+
 export type RegisterFormDataType = {
   firstName: string;
   lastName: string;
@@ -20,6 +22,7 @@ export type ToastMessageType = {
 export type AppContextType = {
   showToast: (toastMessage: ToastMessageType) => void;
   isLoggedin: boolean;
+  stripePromise: Promise<Stripe | null>
 };
 
 export type HotelFormDataType = {
