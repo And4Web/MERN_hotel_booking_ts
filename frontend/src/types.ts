@@ -138,6 +138,13 @@ export type BookingFormData = {
   firstName: string;
   lastName: string;
   email: string;
+  hotelId: string;
+  adultCount: number;
+  childCount: number;
+  checkIn: string;
+  checkOut: string;
+  paymentIntentId: string;
+  totalCost: number;
 }
 
 export type PaymentIntentResponse = {

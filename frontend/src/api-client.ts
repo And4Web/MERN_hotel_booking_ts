@@ -1,4 +1,4 @@
-import { FetchHotelDetailResponseType, HotelSearchResponse, HotelType, LoginFormDataType, PaymentIntentResponse, RegisterFormDataType, SearchParamsType, UserResponseType } from "./types";
+import { BookingFormData, FetchHotelDetailResponseType, HotelSearchResponse, HotelType, LoginFormDataType, PaymentIntentResponse, RegisterFormDataType, SearchParamsType, UserResponseType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
 
@@ -175,6 +175,21 @@ export const createPaymentIntent = async(hotelId: string, numberOfNights: number
   });
 
   if(!response.ok) throw new Error("Error fetching payment intent.")
+
+  return response.json();
+}
+
+export const createBookingRoom = async (formData: BookingFormData) => {
+  const response = await fetch(`${API_BASE_URL}/v1/hotels/${formData.hotelId}/bookings`, {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formData),
+  }) 
+
+  if(!response.ok) throw new Error("Error creating new booking room.")
 
   return response.json();
 }

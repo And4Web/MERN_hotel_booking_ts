@@ -1,6 +1,13 @@
 import { useForm } from "react-hook-form";
 import { BookingFormData, PaymentIntentResponse } from "../../types";
-import {CardElement} from '@stripe/react-stripe-js';
+import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
+import { StripeCardElement } from "@stripe/stripe-js";
+import { useSearchContext } from "../../contexts/SearchContext";
+import { useParams } from "react-router-dom";
+import { useMutation } from "react-query";
+
+import * as apiClient from '../../api-client';
+import { useAppContext } from "../../contexts/AppContext";
 
 type Props = {
   currentUser: {
@@ -18,18 +25,65 @@ type Props = {
 };
 
 function BookingForm({ currentUser, paymentIntent }: Props) {
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const search = useSearchContext();
+  const params = useParams();
+  const {showToast} = useAppContext();
+
+  const {mutate: bookRoom, isLoading, isError, error} = useMutation(apiClient.createBookingRoom, {
+    onSuccess: () => {
+      // 
+      showToast({message: "Booking saved!", type: "SUCCESS"});
+    },
+    onError: () => {
+      // 
+      
+      showToast({message: "Error saving booking!", type: "ERROR"});
+    }
+  })
+
+  if(isError){
+    console.log("Booking Error >>> ", error)
+  }
+
   const { handleSubmit, register } = useForm<BookingFormData>({
     defaultValues: {
       firstName: currentUser?.firstName,
       lastName: currentUser?.lastName,
       email: currentUser?.email,
+      adultCount: search.adultCount,
+      childCount: search.childCount,
+      checkIn: search.checkIn.toISOString(),
+      checkOut: search.checkOut.toISOString(),
+      hotelId: params.hotelId,
+      totalCost: paymentIntent.totalCost,
+      paymentIntentId: paymentIntent.paymentIntentId
     },
   });
 
-  console.log("BookingForm.tsx >>> ", paymentIntent);
+
+  const onSubmit = async (formData: BookingFormData) => {
+    if(!stripe || !elements) return;
+
+    const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+      payment_method: {
+        card: elements?.getElement(CardElement) as StripeCardElement
+      }
+    });
+
+    if(result.paymentIntent?.status === "succeeded"){
+      // create a Booking room
+      bookRoom({...formData, paymentIntentId: result.paymentIntent.id});
+    }
+  }
+
+  // console.log("BookingForm.tsx >>> ", paymentIntent);
 
   return (
-    <form className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-5">
+    <form className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-5" onSubmit={handleSubmit(onSubmit)}>
       <span className="text-3xl font-bold">Confirm your details</span>
       <div className="grid grid-cols-2 gap-6">
         <label className="text-gray-700 text-sm font-bold flex-1">
@@ -83,6 +137,12 @@ function BookingForm({ currentUser, paymentIntent }: Props) {
       <div className="space-y-2">
         <h3 className="text-xl font-semibold">Payment details: </h3>
         <CardElement id="payment-element" className="border rounded-md p-2 text-sm"></CardElement>
+      </div>
+
+      <div className="flex justify-end">
+        <button disabled={isLoading} type="submit" className="bg-blue-600 font-bold hover:bg-blue-500 text-white text-md p-2 rounded disabled:bg-gray-500">
+          {isLoading ? "Saving..." : "Confirm Booking"}          
+        </button>
       </div>
     </form>
   );

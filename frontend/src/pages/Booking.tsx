@@ -1,13 +1,12 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api-client";
+import BookingDetailSummary from "../components/BookingDetailSummary";
+import { useAppContext } from "../contexts/AppContext";
 import { useSearchContext } from "../contexts/SearchContext";
 import BookingForm from "../forms/BookingForm/BookingForm";
-import { useEffect, useState } from "react";
-import BookingDetailSummary from "../components/BookingDetailSummary";
-import { Elements } from "@stripe/react-stripe-js";
-import { useAppContext } from "../contexts/AppContext";
-import { PaymentIntentResponse } from "../types";
 
 function Booking() {
   const search = useSearchContext();
@@ -46,14 +45,15 @@ function Booking() {
     }
   );
 
-  const {paymentIntentId, clientSecret }= paymentIntentData.response;
+  // const {paymentIntentId, clientSecret, totalCost }= paymentIntentData.response;
 
   const { data: currentUser } = useQuery(
     "fetchLoggedinUserDetails ",
     apiClient.fetchLoggedinUserDetails
   );
 
-  // console.log("Booking.tsx >>> ", paymentIntentId);
+
+  // console.log("Booking.tsx >>> ", paymentIntentData);
 
   if (!data?.hotel) {
     return <></>;
@@ -72,9 +72,9 @@ function Booking() {
         numberOfNights={numberOfNights}
         hotel={data?.hotel}
       />
-      {currentUser?.user && paymentIntentId && (
+      {currentUser?.user && paymentIntentData?.response?.paymentIntentId && (
         <Elements stripe={stripePromise} options={{
-          clientSecret,
+          clientSecret: paymentIntentData?.response?.clientSecret,
 
         }}>
           <BookingForm currentUser={currentUser?.user} paymentIntent={paymentIntentData?.response}/>
