@@ -1,18 +1,23 @@
 import { useForm } from "react-hook-form";
-import { BookingFormData } from "../../types";
+import { BookingFormData, PaymentIntentResponse } from "../../types";
+import {CardElement} from '@stripe/react-stripe-js';
 
 type Props = {
-  currentUser:
-    | {
+  currentUser: {
         _id: string;
         email: string;
         firstName: string;
         lastName: string;
-      }
-    | undefined;
+    },
+  paymentIntent: {
+    clientSecret: string;
+    paymentIntentId: string;
+    totalCost: number;
+  }
+    
 };
 
-function BookingForm({ currentUser }: Props) {
+function BookingForm({ currentUser, paymentIntent }: Props) {
   const { handleSubmit, register } = useForm<BookingFormData>({
     defaultValues: {
       firstName: currentUser?.firstName,
@@ -21,7 +26,7 @@ function BookingForm({ currentUser }: Props) {
     },
   });
 
-  // console.log("BookingForm.tsx >>> ", currentUser);
+  console.log("BookingForm.tsx >>> ", paymentIntent);
 
   return (
     <form className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-5">
@@ -57,6 +62,27 @@ function BookingForm({ currentUser }: Props) {
             {...register("email")}
           />
         </label>
+      </div>
+
+      {/*  */}
+      <div className="space-y-2">
+        <h2 className="text-xl font-semibold"> Your price summary: </h2>
+      </div>
+
+      {/*  */}
+      <div className="bg-blue-200 p-4 rounded-md">
+        <div className="font-semibold text-lg">
+          Total Cost: &#x20B9;{paymentIntent.totalCost.toFixed(2)}
+        </div>
+
+        <div className="text-xs">Includes taxes and charges.</div>
+      </div>
+
+      {/*  */}
+
+      <div className="space-y-2">
+        <h3 className="text-xl font-semibold">Payment details: </h3>
+        <CardElement id="payment-element" className="border rounded-md p-2 text-sm"></CardElement>
       </div>
     </form>
   );

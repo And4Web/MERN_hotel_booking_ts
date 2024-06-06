@@ -141,7 +141,11 @@ export type BookingFormData = {
 }
 
 export type PaymentIntentResponse = {
-  paymentIntentId: string;
-  clientSecret: string;
-  totalCost: number;
+  success: boolean;
+  message: string;
+  response: {
+    paymentIntentId: string;
+    clientSecret: string;
+    totalCost: number;
+  }
 }
