@@ -156,3 +156,9 @@ export type PaymentIntentResponse = {
     totalCost: number;
   }
 }
+
+export type MyBookingResponseType = {
+  success: boolean;
+  message: string;
+  results: HotelType[]
+}

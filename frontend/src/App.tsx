@@ -10,6 +10,7 @@ import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
 import HotelDetails from "./pages/HotelDetails";
 import Booking from "./pages/Booking";
+import MyBookings from "./pages/MyBookings";
 
 function App() {
   const { isLoggedin } = useAppContext();
@@ -83,7 +84,7 @@ function App() {
                 </Layout>
               }
             />
-            <Route path="/my-bookings" element={<Layout>My Bookings</Layout>} />
+            <Route path="/my-bookings" element={<Layout><MyBookings/></Layout>} />
           </>
         )}
         <Route path="*" element={<Navigate to="/" />} />

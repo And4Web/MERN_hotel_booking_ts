@@ -20,6 +20,7 @@ import authRoutes from './routers/authRoutes';
 import userRoutes from './routers/userRoutes';
 import hotelsRoutes from './routers/hotelsRoutes';
 import searchRoutes from './routers/searchRoutes';
+import myBookingsRoutes from './routers/myBookings';
 
 mongoose.connect(process.env.MONGODB_DRIVER_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_DRIVER_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
 
@@ -49,7 +50,8 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/hotels', hotelsRoutes);
-app.use('/api/v1/search', searchRoutes)
+app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/my-bookings', myBookingsRoutes);
 
 // Catch all routes
 app.get("*", (req:Request, res:Response)=>{
