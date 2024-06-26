@@ -71,6 +71,17 @@ export const addMyHotel = async (hotelFormData: FormData) => {
   return response.json();
 }
 
+export const fetchAllHotels = async ():Promise<{success: boolean; message: string; hotels: HotelType[]}> => {
+ const response = await fetch(`${API_BASE_URL}/v1/hotels/all`, {
+  credentials: "include"
+ })
+
+ if(!response) throw new Error('Error fetching all hotels.');
+
+ return response.json();
+}
+
+
 export const fetchMyHotels = async(): Promise<HotelType[]> => {
   const response = await fetch(`${API_BASE_URL}/v1/hotels`,{
     credentials: "include"

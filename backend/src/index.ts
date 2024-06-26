@@ -22,10 +22,10 @@ import hotelsRoutes from './routers/hotelsRoutes';
 import searchRoutes from './routers/searchRoutes';
 import myBookingsRoutes from './routers/myBookings';
 
-// mongoose.connect(process.env.MONGODB_DRIVER_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_DRIVER_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
+mongoose.connect(process.env.MONGODB_DRIVER_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_DRIVER_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
 
 // for test only
-mongoose.connect(process.env.MONGODB_LOCAL_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_LOCAL_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
+// mongoose.connect(process.env.MONGODB_LOCAL_URI as string).then(()=>{console.log('mongodb database connected successfully >>> ', process.env.MONGODB_LOCAL_URI)}).catch(e=>console.log('Error connecting to mongodb >>> ', e));
 
 const app = express();
 app.use(cookieParser());

@@ -41,6 +41,21 @@ export const createHotel = async (req: Request, res: Response) => {
   }
 };
 
+// @function - get all hotels
+// @route - /api/v1/hotels/all
+// @access - PUBLIC
+export const getAllHotels = async (req:Request, res:Response) => {
+  try {
+    const hotels = await Hotel.find().sort('-lastUpdated');
+
+    return res.status(200).json({success: true, message: "Hotels fetched successfully.", hotels});
+    
+  } catch (error) {
+    console.log('error >>>', error);
+    return res.status(500).json({success: false, message: "Error fetching all hotels"});
+  }
+}
+
 // @function - get all hotels - user
 // @route - /api/v1/hotels/
 // @access - logged in users only

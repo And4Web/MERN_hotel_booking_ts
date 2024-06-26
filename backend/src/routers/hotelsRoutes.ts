@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createHotel, CreateHotelBooking, createPaymentIntent, getHotelDetails, getMyHotels, getSingleHotel, updateHotel } from "../controllers/hotelsController";
+import { createHotel, CreateHotelBooking, createPaymentIntent, getAllHotels, getHotelDetails, getMyHotels, getSingleHotel, updateHotel } from "../controllers/hotelsController";
 import verifyToken from "../middleware/auth";
 import upload from "../middleware/multer";
 import { createHotelValidator, hotelIdValidator } from "../middleware/validator";
@@ -11,6 +11,11 @@ const router = Router();
 // @route - /api/v1/hotels/my-hotel
 // @access - logged in users only
 router.post('/my-hotel', verifyToken, createHotelValidator, upload.array('imageFiles', 6), createHotel);
+
+// @method - GET - get all hotels
+// @route - /api/v1/hotels/all
+// @access - PUBLIC
+router.get('/all', getAllHotels)
 
 
 // @method - GET - get all hotels - user 
