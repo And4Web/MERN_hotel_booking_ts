@@ -1,4 +1,4 @@
-import { BookingFormData, FetchHotelDetailResponseType, HotelSearchResponse, HotelType, LoginFormDataType, MyBookingResponseType, PaymentIntentResponse, RegisterFormDataType, SearchParamsType, UserResponseType } from "./types";
+import { BookingFormData, FetchHotelDetailResponseType, FetchHotelsResponseType, HotelSearchResponse, LoginFormDataType, MyBookingResponseType, PaymentIntentResponse, RegisterFormDataType, SearchParamsType, UserResponseType } from "./types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string || "";
 
@@ -71,7 +71,7 @@ export const addMyHotel = async (hotelFormData: FormData) => {
   return response.json();
 }
 
-export const fetchAllHotels = async ():Promise<{success: boolean; message: string; hotels: HotelType[]}> => {
+export const fetchAllHotels = async ():Promise<FetchHotelsResponseType> => {
  const response = await fetch(`${API_BASE_URL}/v1/hotels/all`, {
   credentials: "include"
  })
@@ -82,7 +82,7 @@ export const fetchAllHotels = async ():Promise<{success: boolean; message: strin
 }
 
 
-export const fetchMyHotels = async(): Promise<HotelType[]> => {
+export const fetchMyHotels = async(): Promise<FetchHotelsResponseType> => {
   const response = await fetch(`${API_BASE_URL}/v1/hotels`,{
     credentials: "include"
   });

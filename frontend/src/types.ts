@@ -63,6 +63,12 @@ export type PropsType = {
   hotelData?: HotelType;
 };
 
+export type FetchHotelsResponseType = {
+  success: boolean;
+  message: string;
+  hotels: HotelType[];
+}
+
 export type HotelSearchResponse = {
   success: boolean;
   message: string;
