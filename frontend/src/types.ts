@@ -163,8 +163,43 @@ export type PaymentIntentResponse = {
   }
 }
 
+export type BookingType = {
+  adultCount: number;
+  checkIn: string;
+  checkOut: string;
+  childCount: number;
+  createdAt: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  totalCost: number;
+  updatedAt: string;
+  userId: string;
+  _id: string;
+}
+
+export type BookingResultType = {
+  adultCount: number;
+  bookings: BookingType[];
+  childCount: number;
+  city: string;
+  country: string;
+  createdAt: string;
+  description: string;
+  facilities: string[];
+  imageUrls: string[];
+  lastUpdated: string;
+  name: string;
+  pricePerNight: number;
+  starRating: number;
+  type: string;
+  updatedAt: string;
+  userId: string;
+  _id: string;
+}
+
 export type MyBookingResponseType = {
   success: boolean;
   message: string;
-  results: HotelType[]
+  results: BookingResultType[]
 }

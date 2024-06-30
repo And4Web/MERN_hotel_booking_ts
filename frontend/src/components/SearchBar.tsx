@@ -16,7 +16,6 @@ function SearchBar() {
   const [adultCount, setAdultCount] = useState<number>(search.adultCount);
   const [childCount, setChildCount] = useState<number>(search.childCount);
 
-  const [hotelId, setHotelId] = useState<string>("");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { BookingFormData, PaymentIntentResponse } from "../../types";
+import { BookingFormData } from "../../types";
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import { StripeCardElement } from "@stripe/stripe-js";
 import { useSearchContext } from "../../contexts/SearchContext";
@@ -81,8 +81,6 @@ function BookingForm({ currentUser, paymentIntent }: Props) {
       bookRoom({...formData, paymentIntentId: result.paymentIntent.id});
     }
   }
-
-  // console.log("BookingForm.tsx >>> ", paymentIntent);
 
   return (
     <form className="grid grid-cols-1 gap-5 rounded-lg border border-slate-300 p-5" onSubmit={handleSubmit(onSubmit)}>

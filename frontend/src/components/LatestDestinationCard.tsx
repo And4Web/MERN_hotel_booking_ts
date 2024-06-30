@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import {HotelType} from '../types';
 
 type Props = {
+  key?: string | number;
   hotel: HotelType;
 }
 

@@ -11,7 +11,6 @@ function Home() {
       showToast({message: "Failed fetching hotels list.", type: "ERROR"})
     }
   });
-  // console.log(hotels);
 
   const topRowHotels = data?.hotels?.slice(0,2) || [];
   const bottomRowHotels = data?.hotels?.slice(2) || [];

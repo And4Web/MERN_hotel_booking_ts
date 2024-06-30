@@ -33,23 +33,33 @@ function MyHotels() {
               <div className="whitespace-pre-line">{hotel.description}</div>
               <div className="grid grid-cols-5 gap-2">
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                  <BsMap className="mr-2"/>
+                  <div className="mr-2">
+                    <BsMap />
+                  </div>
                   {hotel.city}, {hotel.country}
                 </div>
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                  <BiBuilding className="mr-2"/>
+                <div className="mr-2">
+                  <BiBuilding />
+                </div>
                   {hotel.type}
                 </div>
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                 <BiMoney className="mr-2"/>
+                <div className="mr-2">
+                 <BiMoney />
+                </div>
                  &#8377; {hotel.pricePerNight} per night
                 </div>
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                 <BiHotel className="mr-2"/>
+                <div className="mr-2">
+                 <BiHotel />
+                </div>
                  {hotel.adultCount} adults, {hotel.childCount} children
                 </div>
                 <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                 <BiStar className="mr-2"/>
+                <div className="mr-2">
+                 <BiStar />
+                </div>
                  {hotel.starRating} Star rating
                 </div>
               </div>

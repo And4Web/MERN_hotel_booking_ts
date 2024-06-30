@@ -5,8 +5,6 @@ function MyBookings() {
 
   const {data} = useQuery("fetchMyBookings", apiClient.fetchMyBookings);
 
-  console.log("fetch bookings >>> ", data?.results);
-
   if(!data || data.results?.length === 0) {
     return <h2>No Bookings found at this moment.</h2>
   }
@@ -17,7 +15,7 @@ function MyBookings() {
       {
         data?.results?.map((result, index)=>{
           return (
-            <div className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded p-8 gap-5'>
+            <div key={index} className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded p-8 gap-5'>
               <div className='lg:w-full lg:h-[250px]'>
                 <img src={result.imageUrls[0]} alt="hotel image" className='w-full h-full object-cover object-center'/>
               </div>
@@ -32,7 +30,7 @@ function MyBookings() {
 
                 {result.bookings?.map((booking, index)=>{
                   return (
-                    <div>
+                    <div key={index}>
                       <div>
                         <span className='font-bold mr-2 '>Dates: </span>
                         <span>{new Date(booking.checkIn).toDateString()} - {new Date(booking.checkOut).toDateString()}</span>

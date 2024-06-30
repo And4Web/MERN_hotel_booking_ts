@@ -14,9 +14,6 @@ function HotelDetails() {
       enabled: !!hotelId,
     }
   );
-  // const {hotel} = data;
-  
-  // console.log("hotel details >>> ", hotelId, hotel)
 
   if(!data?.hotel){
     return <></>;
@@ -27,7 +24,9 @@ function HotelDetails() {
     <div>
        <span className="flex">
          {Array.from({length: data?.hotel?.starRating as number}).map((_, index)=>{
-          return <AiFillStar key={index} className="fill-yellow-400"/>
+          return <div key={index} >
+            <AiFillStar className="fill-yellow-400"/>
+          </div>
         })}
       </span>
 
@@ -40,8 +39,6 @@ function HotelDetails() {
           <div key={index} className="h-[300px]">
             <img src={image} alt={data?.hotel?.name} className="rounded-md w-full h-full object-cover object-center"/>
           </div>
-
-
         ))
       }
     </div>
@@ -61,7 +58,6 @@ function HotelDetails() {
         {data?.hotel?.description}
       </div>
       <div className="h-fit">
-        {/* <GuestInfo/> */}
         <GuestInfoForm hotelId={hotelId as string} pricePerNight={data?.hotel?.pricePerNight as number}/>
       </div>
     </div>
