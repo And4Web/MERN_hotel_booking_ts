@@ -45,15 +45,10 @@ function Booking() {
     }
   );
 
-  // const {paymentIntentId, clientSecret, totalCost }= paymentIntentData.response;
-
   const { data: currentUser } = useQuery(
     "fetchLoggedinUserDetails ",
     apiClient.fetchLoggedinUserDetails
   );
-
-
-  // console.log("Booking.tsx >>> ", paymentIntentData);
 
   if (!data?.hotel) {
     return <></>;
@@ -61,9 +56,6 @@ function Booking() {
 
   return (
     <div className="grid md:grid-cols-[1fr_2fr] gap-4 ">
-      {/* <div className="bg-green-200 font-bold text-xl p-2 rounded">
-        {"Booking Details Summary".toUpperCase()}
-      </div> */}
       <BookingDetailSummary
         checkIn={search.checkIn}
         checkOut={search.checkOut}
@@ -81,10 +73,6 @@ function Booking() {
         </Elements>
         
       )}
-
-      {/* <div className="bg-blue-200 font-bold text-xl rounded p-2">
-       
-      </div> */}
     </div>
   );
 }

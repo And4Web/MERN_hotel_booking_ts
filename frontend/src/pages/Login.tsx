@@ -33,7 +33,6 @@ export default function Login() {
   })
 
   const onSubmit = handleSubmit(data=>{
-    console.log(data)
     mutation.mutate(data);
   })
 

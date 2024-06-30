@@ -70,14 +70,16 @@ export type FetchHotelsResponseType = {
 }
 
 export type HotelSearchResponse = {
-  success: boolean;
-  message: string;
-  data: HotelType[];
-  pagination: {
+  response: {
+    success: boolean;
+    message: string;
+    data: HotelType[];
+    pagination: {
     total: number;
     page: number;
     pages: number;
   };
+  }
 };
 
 export type SearchContextType = {

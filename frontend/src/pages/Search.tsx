@@ -35,11 +35,7 @@ function Search() {
     sortOptions,
   }
 
-  // const {data: {response: {data:searchHotelData, pagination}}} = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
-
   const {data} = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
-  
-  const response = useQuery(["searchHotels", searchParams], () => apiClient.searchHotels(searchParams))
   
   const searchHotelData = data?.response?.data;
   const pagination = data?.response?.pagination;

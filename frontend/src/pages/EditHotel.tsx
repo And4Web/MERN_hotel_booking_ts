@@ -25,12 +25,10 @@ function EditHotel() {
       showToast({message: "Failed Updating hotel.",type: "ERROR"})
     }
   })
-
  
   const handleSave = (hotelFormData: FormData) => {
     mutate(hotelFormData)
   }
-
 
   return (
     <ManageHotelForm hotelData={hotelData?.hotel as HotelType} onSave={handleSave} isLoading={isLoading}/>
