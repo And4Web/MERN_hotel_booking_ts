@@ -44,7 +44,7 @@ app.get("/api/v1/test", async(req: Request, res: Response)=>{
   return res.json({message: "test route", rootPath: path.join(__dirname)})
 })
 
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+// app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 // routes
 app.use('/api/v1/users', userRoutes);
